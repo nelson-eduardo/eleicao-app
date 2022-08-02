@@ -1,0 +1,202 @@
+from email import header
+from turtle import width
+# from turtle import color
+from click import style
+from sklearn import exceptions
+import streamlit as st
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import plotly.graph_objects as go
+from streamlit_option_menu import option_menu 
+# import geopandas as geo
+import folium
+import plotly.figure_factory as ff
+# import plotly.express as px
+import plotly.express as px
+from plotly.subplots import make_subplots
+# graficos
+import plotly.express as px
+import plotly.graph_objects as go
+
+
+st.set_page_config(page_title="eleicao-geral-App | Nelson Eduardo", page_icon="😋")   
+
+# from streamlit_folium import folium_static
+# from folium.plugins import MarkerCluster
+
+
+# Zona de definicao dos container para pagina 
+header = st.container()
+dataset = st.container()
+graficos_presidencial = st.container()
+graficos_legilativa = st.container()
+model_training = st.container()
+
+st.markdown(
+"""
+<style>
+    .main{
+       background-color:"#ffff"
+    }
+</style>
+
+""",
+unsafe_allow_html = True
+
+)
+
+
+div1, div2 = st.columns([2, 1])
+with header:
+    st.title("BEM VIMDO")
+    st.subheader("Este aplicativo foi um estudo pessoal sobre as eleicoes em Angola!!")
+# Incio do bloco dataset-importacao dos dataset
+
+from PIL import Image
+# image = Image.open('dilson4.jpg')
+
+# st.image(image, caption='Sunrise by the mountains')
+with dataset:
+    
+    # Importacao dos dataset
+    fich_excel_eleicao1992 = 'dados/eleicao1992.xlsx'
+    planilha_presidencial = 'presidencial'
+    planilha_legilativa = 'legilativa'
+    
+    # st.subheader('Quadro Geral da eleicao presidencial de 1992')
+    # st.text("Este quadro representa os numero de votos da eleicao presidencial || fonte CNE")
+    
+    def importar_datasets(ficheiro, folha):
+        try:
+            return pd.read_excel(ficheiro, sheet_name=folha)
+        except:
+            st.warning("Aconteceu um erro ao carregar o ficheiro")
+        else:
+            return pd.read_excel(ficheiro, sheet_name=folha)       
+        
+    df_presidencial = importar_datasets(fich_excel_eleicao1992, planilha_presidencial)
+    df_legilativa = importar_datasets(fich_excel_eleicao1992, planilha_legilativa)
+
+
+# Criacao dos principais graficos
+    # graifco de Pie
+def grafico_pie(categorias, valores):
+    fig = go.Figure(
+    go.Pie(
+    labels = categorias,
+    values = valores,
+    hoverinfo = "label+percent",
+    textinfo = "value"
+    ))
+
+    st.header("Grafico de pie-eleicao Presidencial")
+    st.plotly_chart(fig)
+    # graifco de barra
+def grafico_barra(categoria, valores):
+    dict = { 'Candidatos': categoria, 'Votos': valores} 
+    df = pd.DataFrame(dict)
+    fig = px.bar( 
+    df,
+    x = "Candidatos",
+    y = "Votos",
+    # title = "Grafico de barra-eleicao Presidencial",
+    # width=800
+    )
+    st.header("Grafico de Barra-eleicao Presidencial")
+    st.plotly_chart(fig)
+# fim da zana para criacao de graficos
+
+# variavel eleicao presidencial
+categoria_presidencial = df_presidencial["Candidatos"]
+valores_presidencial =  df_presidencial["votos"]
+def multipla_opc(dados_selecionado):
+    options = st.multiselect('ESCOLHE UM CANDIDATO',dados_selecionado)
+    # st.write('You selected:', options)
+    return options
+def input():
+    variavel_nome = st.text_input("Digita qualquer coisa", 'Digite o nome do Cliente')
+    return variavel_nome
+
+def color_df(val):
+    if val > 21:    color = 'green'
+    else :   color = 'red'
+    return f'background-color: {color}'
+
+
+categoria_legilativa = df_legilativa["Partidos"]
+valores_legilativa =  df_legilativa["Votos"]
+
+# variavel eleicao legilativa
+# st.dataframe(df_legilativa)
+# categoria_legilativa = df_legilativa["Partidos"]
+# valores_legilativa = df_legilativa["Votos"]
+
+# Seccao da eleicao presidencial
+with graficos_presidencial:
+    st.subheader('Quadro Geral da eleicao presidencial de 1992')
+   
+    expander = st.expander("MAIS INFORMCAO")
+    expander.write("""
+    uma analise sobre os dados das  eleicao presidencial em Angola realizada em 1992, 
+    onde podemos ver a tabela dos candidados a presidencia e 
+    a quatidade de votos conseguido, para uma melhor visaulizacao usamos os graficos de bar e Pie.
+     Dados obtidos no site da CNE
+    """
+     
+    )
+    
+    
+    checkboReturn = st.sidebar.checkbox("Ver dados dos partidos")
+    st.write("")
+    st.balloons()
+
+    if checkboReturn == True:
+        recebe = col1_selection = st.sidebar.selectbox('Partidos', df_presidencial ) 
+        if recebe == "":
+            # st.write("Seleciona um candidados")
+            st.dataframe(df_presidencial.loc[df_presidencial['Partidos']== recebe])
+        else: 
+            # st.write(recebe) 
+            st.dataframe(df_presidencial.loc[df_presidencial["Candidatos"]== recebe]) 
+            # st.dataframe(df_presidencial)
+    else:
+        st.dataframe(df_presidencial)
+with div1:
+    grafico_barra(categoria_presidencial, valores_presidencial)
+with div2:
+    grafico_pie(categoria_presidencial, valores_presidencial) 
+    
+
+# Seccao da eleicao legilativa
+
+
+with graficos_legilativa:
+    st.subheader('Quadro Geral da eleicao Legilaiva de 1992')
+    st.text("uma analise sobre os dados das  eleicao geral em Angola")
+    
+    recebe = col1_selection = st.sidebar.selectbox('Partidos', df_legilativa )
+    if recebe == "":
+        st.write("Seleciona um candidados")
+    else:
+        st.dataframe(df_legilativa)
+        st.dataframe(df_legilativa.style.applymap(color_df, subset=['Partidos']))
+
+    # div1
+    #     grafico_pie(categoria_legilativa, valores_legilativa)
+    # div2    
+    # grafico_barra(categoria_legilativa, valores_legilativa)
+
+
+
+with div1:
+    grafico_barra(categoria_legilativa, valores_legilativa)
+with div2:
+    grafico_pie(categoria_legilativa, valores_legilativa)
+# with st.sidebar:
+#     selected = option_menu(
+
+#         menu_title = "Main Menu",
+#         options = ["Home", "2008"] 
+#     )
+
