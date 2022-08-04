@@ -75,7 +75,7 @@ debugpy @ file:///C:/ci/debugpy_1629222819322/work
 decorator @ file:///tmp/build/80754af9/decorator_1632776554403/work
 defusedxml @ file:///tmp/build/80754af9/defusedxml_1615228127516/work
 diff-match-patch @ file:///Users/ktietz/demo/mc3/conda-bld/diff-match-patch_1630511840874/work
-# distributed @ file:///C:/ci/distributed_1635968318313/work
+distributed @ file:///C:/ci/distributed_1635968318313/work
 setuptools==0.7.3
 docopt==0.6.2
 docutils @ file:///C:/ci/docutils_1620828264669/work
