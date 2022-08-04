@@ -69,7 +69,7 @@ with feature:
     st.header("APlicacao sobre os dados de eleicao geral em Angola 2022")
     st.text("Neste projecto,desenvolvo um projecto de python com a platoforma Streamlit...")
 
-with model_training:
+with model_training: 
     st.header("APlicacao sobre os dados de eleicao geral em Angola 2022")
     # st.button("botao para download")
     # st.camera_input("Sorrir! Estas a ser filmado!")

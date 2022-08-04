@@ -1,1 +1,1 @@
-1_😉_main.py
+web: sh setup.sh && streamlit run 1_😉_main.py
