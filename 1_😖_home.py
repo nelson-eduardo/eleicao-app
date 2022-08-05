@@ -6,13 +6,13 @@ from click import style
 import streamlit as st
 
 import pandas as pd
-import plotly.graph_objects as go
+# import plotly.graph_objects as go
  
 
 
 # import plotly.figure_factory as ff
 
-import plotly.express as px
+# import plotly.express as px
 # from plotly.subplots import make_subplots
 # graficos
 import plotly.express as px
