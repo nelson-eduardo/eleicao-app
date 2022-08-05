@@ -15,7 +15,7 @@ import pandas as pd
 # import plotly.express as px
 # from plotly.subplots import make_subplots
 # graficos
-import plotly.express as px
+# import plotly.express as px
 import plotly.graph_objects as go
 
 
