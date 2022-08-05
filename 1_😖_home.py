@@ -62,13 +62,13 @@ with dataset:
     # st.text("Este quadro representa os numero de votos da eleicao presidencial || fonte CNE")
     
     def importar_datasets(ficheiro, folha):
-        try:
+        # //try:
             return pd.read_excel(ficheiro, sheet_name=folha)
             
-        except:
-            st.warning("Aconteceu um erro ao carregar o ficheiro")
-        else:
-            return pd.read_excel(ficheiro, sheet_name=folha)       
+        # except:
+            # st.warning("Aconteceu um erro ao carregar o ficheiro")
+        # else:
+            # return pd.read_excel(ficheiro, sheet_name=folha)       
         
     df_presidencial = importar_datasets(fich_excel_eleicao1992, planilha_presidencial)
     df_legilativa = importar_datasets(fich_excel_eleicao1992, planilha_legilativa)
