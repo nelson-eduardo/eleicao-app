@@ -54,9 +54,9 @@ with header:
 with dataset:
     
     # Importacao dos dataset
-    fich_excel_eleicao1992 = 'eleicao1992.xlsx'
-    planilha_presidencial = 'presidencial'
-    planilha_legilativa = 'legilativa'
+    fich_excel_eleicao1992 = "dados/eleicao1992.xlsx"
+    planilha_presidencial = "presidencial"
+    planilha_legilativa = "legilativa"
     
     # st.subheader('Quadro Geral da eleicao presidencial de 1992')
     # st.text("Este quadro representa os numero de votos da eleicao presidencial || fonte CNE")
