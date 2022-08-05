@@ -102,8 +102,8 @@ def grafico_barra(categoria, valores):
 # fim da zana para criacao de graficos
 
 # variavel eleicao presidencial
-categoria_presidencial = df_presidencial["Candidatos"]
-valores_presidencial =  df_presidencial["votos"]
+# categoria_presidencial = df_presidencial["Candidatos"]
+# valores_presidencial =  df_presidencial["votos"]
 def multipla_opc(dados_selecionado):
     options = st.multiselect('ESCOLHE UM CANDIDATO',dados_selecionado)
     # st.write('You selected:', options)
@@ -114,8 +114,8 @@ def input():
 
 
 
-categoria_legilativa = df_legilativa["Partidos"]
-valores_legilativa =  df_legilativa["Votos"]
+# categoria_legilativa = df_legilativa["Partidos"]
+# valores_legilativa =  df_legilativa["Votos"]
 
 # variavel eleicao legilativa
 # st.dataframe(df_legilativa)
