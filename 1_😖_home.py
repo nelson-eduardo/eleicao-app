@@ -4,17 +4,17 @@ from email import header
 from click import style
 # from sklearn import exceptions
 import streamlit as st
-import numpy as np
-import matplotlib.pyplot as plt
+# import numpy as np
+# import matplotlib.pyplot as plt
 import pandas as pd
 import plotly.graph_objects as go
  
 
 
-import plotly.figure_factory as ff
+# import plotly.figure_factory as ff
 
 import plotly.express as px
-from plotly.subplots import make_subplots
+# from plotly.subplots import make_subplots
 # graficos
 import plotly.express as px
 import plotly.graph_objects as go
