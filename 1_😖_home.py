@@ -54,7 +54,7 @@ with header:
 with dataset:
     
     # Importacao dos dataset
-    fich_excel_eleicao1992 = 'dados/eleicao1992.xlsx'
+    fich_excel_eleicao1992 = 'eleicao1992.xlsx'
     planilha_presidencial = 'presidencial'
     planilha_legilativa = 'legilativa'
     
@@ -64,6 +64,7 @@ with dataset:
     def importar_datasets(ficheiro, folha):
         try:
             return pd.read_excel(ficheiro, sheet_name=folha)
+            
         except:
             st.warning("Aconteceu um erro ao carregar o ficheiro")
         else:
@@ -72,7 +73,7 @@ with dataset:
     df_presidencial = importar_datasets(fich_excel_eleicao1992, planilha_presidencial)
     df_legilativa = importar_datasets(fich_excel_eleicao1992, planilha_legilativa)
     # df_presidencial = pd.read_excel(fich_excel_eleicao1992, sheet_name=planilha_presidencial)
-    st.dataframe(df_presidencial)    
+    # st.dataframe(df_presidencial)    
 
 # Criacao dos principais graficos
     # graifco de Pie
