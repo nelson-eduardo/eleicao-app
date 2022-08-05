@@ -71,7 +71,7 @@ with dataset:
         
     # df_presidencial = importar_datasets(fich_excel_eleicao1992, planilha_presidencial)
     df_legilativa = importar_datasets(fich_excel_eleicao1992, planilha_legilativa)
-    df_presidencial = pd.read_excel(fich_excel_eleicao1992, sheet_name=planilha_presidencial)
+    # df_presidencial = pd.read_excel(fich_excel_eleicao1992, sheet_name=planilha_presidencial)
 st.dataframe(df_presidencial)    
 
 # Criacao dos principais graficos
