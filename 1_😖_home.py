@@ -16,7 +16,7 @@ import pandas as pd
 # from plotly.subplots import make_subplots
 # graficos
 # import plotly.express as px
-import plotly.graph_objects as go
+# import plotly.graph_objects as go
 
 
 st.set_page_config(page_title="eleicao-geral-App | Nelson Eduardo", page_icon="😋")   
