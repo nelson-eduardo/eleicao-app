@@ -92,7 +92,7 @@ with graficos:
         # st.write("Seleciona um candidados")
 st.dataframe(df_gerala2008)
 
-AgGrid(df_gerala2008)
+# AgGrid(df_gerala2008)
 #     else: 
         # st.write(recebe) 
      #    st.dataframe(df_presidencial.loc[df_presidencial["Candidatos"]== recebe]) 

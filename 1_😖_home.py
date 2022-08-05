@@ -8,11 +8,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import plotly.graph_objects as go
-from streamlit_option_menu import option_menu 
-# import geopandas as geo
-import folium
+ 
+
+
 import plotly.figure_factory as ff
-# import plotly.express as px
+
 import plotly.express as px
 from plotly.subplots import make_subplots
 # graficos
@@ -21,9 +21,6 @@ import plotly.graph_objects as go
 
 
 st.set_page_config(page_title="eleicao-geral-App | Nelson Eduardo", page_icon="😋")   
-
-# from streamlit_folium import folium_static
-# from folium.plugins import MarkerCluster
 
 
 # Zona de definicao dos container para pagina 
@@ -47,16 +44,14 @@ unsafe_allow_html = True
 )
 
 
-div1, div2 = st.columns([2, 1])
+div1, div2 = st.columns([3, 1])
 with header:
     st.title("BEM VIMDO")
     st.subheader("Este aplicativo foi um estudo pessoal sobre as eleicoes em Angola!!")
 # Incio do bloco dataset-importacao dos dataset
 
-from PIL import Image
-# image = Image.open('dilson4.jpg')
 
-# st.image(image, caption='Sunrise by the mountains')
+
 with dataset:
     
     # Importacao dos dataset
@@ -118,10 +113,6 @@ def input():
     variavel_nome = st.text_input("Digita qualquer coisa", 'Digite o nome do Cliente')
     return variavel_nome
 
-def color_df(val):
-    if val > 21:    color = 'green'
-    else :   color = 'red'
-    return f'background-color: {color}'
 
 
 categoria_legilativa = df_legilativa["Partidos"]
@@ -147,12 +138,12 @@ with graficos_presidencial:
     )
     
     
-    checkboReturn = st.sidebar.checkbox("Ver dados dos partidos")
+    checkboReturn = st.sidebar.checkbox("Filtrar Candidatos")
     st.write("")
-    st.balloons()
+    # st.balloons()
 
     if checkboReturn == True:
-        recebe = col1_selection = st.sidebar.selectbox('Partidos', df_presidencial ) 
+        recebe =  st.sidebar.selectbox('Candidatos', df_presidencial ) 
         if recebe == "":
             # st.write("Seleciona um candidados")
             st.dataframe(df_presidencial.loc[df_presidencial['Partidos']== recebe])
@@ -163,24 +154,35 @@ with graficos_presidencial:
     else:
         st.dataframe(df_presidencial)
 with div1:
-    grafico_barra(categoria_presidencial, valores_presidencial)
-with div2:
-    grafico_pie(categoria_presidencial, valores_presidencial) 
     
+    grafico_pie(categoria_presidencial, valores_presidencial)
+with div2:
+     
+    grafico_pie(categoria_legilativa, valores_legilativa)
 
 # Seccao da eleicao legilativa
 
+checkboReturn = st.sidebar.checkbox("Filtrar Partidos")
+st.write("")
 
+   
 with graficos_legilativa:
     st.subheader('Quadro Geral da eleicao Legilaiva de 1992')
     st.text("uma analise sobre os dados das  eleicao geral em Angola")
     
-    recebe = col1_selection = st.sidebar.selectbox('Partidos', df_legilativa )
-    if recebe == "":
-        st.write("Seleciona um candidados")
-    else:
-        st.dataframe(df_legilativa)
-        st.dataframe(df_legilativa.style.applymap(color_df, subset=['Partidos']))
+ 
+if checkboReturn == True:
+        recebe =  st.sidebar.selectbox('Candidatos', df_legilativa ) 
+        if recebe == "":
+            # st.write("Seleciona um candidados")
+            st.dataframe(df_presidencial.loc[df_presidencial['Partidos']== recebe])
+        else: 
+            # st.write(recebe) 
+            st.dataframe(df_legilativa.loc[df_legilativa["Partidos"]== recebe]) 
+            # st.dataframe(df_presidencial)
+else:
+        st.dataframe(df_legilativa) 
+        
 
     # div1
     #     grafico_pie(categoria_legilativa, valores_legilativa)
@@ -192,11 +194,5 @@ with graficos_legilativa:
 with div1:
     grafico_barra(categoria_legilativa, valores_legilativa)
 with div2:
-    grafico_pie(categoria_legilativa, valores_legilativa)
-# with st.sidebar:
-#     selected = option_menu(
-
-#         menu_title = "Main Menu",
-#         options = ["Home", "2008"] 
-#     )
-
+    # grafico_pie(categoria_legilativa, valores_legilativa)
+    grafico_barra(categoria_presidencial, valores_presidencial)
