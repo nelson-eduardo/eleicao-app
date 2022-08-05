@@ -1,5 +1,5 @@
 from email import header
-from turtle import width
+# from turtle import width
 # from turtle import color
 from click import style
 from sklearn import exceptions
