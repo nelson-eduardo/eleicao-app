@@ -15,8 +15,8 @@ import pandas as pd
 # import plotly.express as px
 # from plotly.subplots import make_subplots
 # graficos
-# import plotly.express as px
-# import plotly.graph_objects as go
+import plotly.express as px
+import plotly.graph_objects as go
 
 
 st.set_page_config(page_title="eleicao-geral-App | Nelson Eduardo", page_icon="😋")   
@@ -43,7 +43,7 @@ unsafe_allow_html = True
 )
 
 
-div1, div2 = st.columns([3, 1])
+div1, div2 = st.columns([22, 3])
 with header:
     st.title("BEM VIMDO")
     st.subheader("Este aplicativo foi um estudo pessoal sobre as eleicoes em Angola!!")
@@ -86,7 +86,7 @@ def grafico_pie(categorias, valores):
     textinfo = "value"
     ))
 
-    st.header("Grafico de pie-eleicao Presidencial")
+    # st.header("Grafico de pie-eleicao Presidencial")
     st.plotly_chart(fig)
     # graifco de barra
 def grafico_barra(categoria, valores):
@@ -99,30 +99,26 @@ def grafico_barra(categoria, valores):
     # title = "Grafico de barra-eleicao Presidencial",
     # width=800
     )
-    st.header("Grafico de Barra-eleicao Presidencial")
+    # st.header("Grafico de Barra-eleicao Presidencial")
     st.plotly_chart(fig)
 # fim da zana para criacao de graficos
 
 # variavel eleicao presidencial
-# categoria_presidencial = df_presidencial["Candidatos"]
-# valores_presidencial =  df_presidencial["votos"]
-def multipla_opc(dados_selecionado):
-    options = st.multiselect('ESCOLHE UM CANDIDATO',dados_selecionado)
-    # st.write('You selected:', options)
-    return options
+
+
 def input():
     variavel_nome = st.text_input("Digita qualquer coisa", 'Digite o nome do Cliente')
     return variavel_nome
 
 
-
-# categoria_legilativa = df_legilativa["Partidos"]
-# valores_legilativa =  df_legilativa["Votos"]
+# valores para os graficos da eleicao presidencial
+categoria_presidencial = df_presidencial["Candidatos"]
+valores_presidencial =  df_presidencial["votos"]
 
 # variavel eleicao legilativa
 # st.dataframe(df_legilativa)
-# categoria_legilativa = df_legilativa["Partidos"]
-# valores_legilativa = df_legilativa["Votos"]
+categoria_legilativa = df_legilativa["Partidos"]
+valores_legilativa = df_legilativa["Votos"]
 
 # Seccao da eleicao presidencial
 with graficos_presidencial:
@@ -154,34 +150,38 @@ with graficos_presidencial:
             # st.dataframe(df_presidencial)
     else:
         st.dataframe(df_presidencial)
-with div1:
+checkboReturn = st.sidebar.checkbox("Mostrar Graficos da eleica legilativa ")
+if checkboReturn == True:        
+    with graficos_presidencial:        
+        with div1:
+            
+            grafico_pie(categoria_presidencial, valores_presidencial)
+        with div2:
+            grafico_barra(categoria_presidencial, valores_presidencial) 
     
-    grafico_pie(categoria_presidencial, valores_presidencial)
-with div2:
-     
-    grafico_pie(categoria_legilativa, valores_legilativa)
 
 # Seccao da eleicao legilativa
 
-checkboReturn = st.sidebar.checkbox("Filtrar Partidos")
-st.write("")
+
 
    
 with graficos_legilativa:
     st.subheader('Quadro Geral da eleicao Legilaiva de 1992')
     st.text("uma analise sobre os dados das  eleicao geral em Angola")
     
+    checkboReturn = st.sidebar.checkbox("Filtrar Partidos")
+    st.write("")
  
-if checkboReturn == True:
-        recebe =  st.sidebar.selectbox('Candidatos', df_legilativa ) 
+    if checkboReturn == True:
+        recebe =  st.sidebar.selectbox('Partidos', df_legilativa ) 
         if recebe == "":
             # st.write("Seleciona um candidados")
-            st.dataframe(df_presidencial.loc[df_presidencial['Partidos']== recebe])
+            st.dataframe(df_legilativa.loc[df_legilativa['Partidos']== recebe])
         else: 
             # st.write(recebe) 
             st.dataframe(df_legilativa.loc[df_legilativa["Partidos"]== recebe]) 
             # st.dataframe(df_presidencial)
-else:
+    else:
         st.dataframe(df_legilativa) 
         
 
@@ -191,9 +191,11 @@ else:
     # grafico_barra(categoria_legilativa, valores_legilativa)
 
 
-
-with div1:
-    grafico_barra(categoria_legilativa, valores_legilativa)
-with div2:
-    # grafico_pie(categoria_legilativa, valores_legilativa)
-    grafico_barra(categoria_presidencial, valores_presidencial)
+checkboReturn = st.sidebar.checkbox("Mostrar Graficos da eleica legilativa")
+if checkboReturn == True:
+    with div1:
+        grafico_pie(categoria_legilativa, valores_legilativa)
+    with div2:
+        # grafico_pie(categoria_legilativa, valores_legilativa)
+        
+        grafico_barra(categoria_legilativa, valores_legilativa)

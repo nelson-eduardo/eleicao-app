@@ -26,6 +26,9 @@ header = st.container()
 
 
 with header:
-    st.title("Analise da eleicao de 2012")
-    st.subheader("Este aplicativo foi um estudo pessoal ❤ sobre as eleicoes em Angola!!")
+    st.title("Analise das eleicoes em angola usando a linguagem Python e Streamlit")
+   
+    st.subheader("Este Projecto foi desenvolvido por Nelson Eduardo com Muito 🧡")
+    st.header("Obrigado pela visita! Estamos Juntos 🙏")
+
 st.balloons()

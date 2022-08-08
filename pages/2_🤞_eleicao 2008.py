@@ -1,15 +1,15 @@
 from email import header
 # from turtle import color
-from click import style
+# from click import style
 import streamlit as st
-import numpy as np
-import matplotlib.pyplot as plt
+# import numpy as np
+# import matplotlib.pyplot as plt
 import pandas as pd
 
 # graficos
 import plotly.express as px
 import plotly.graph_objects as go
-from st_aggrid import AgGrid
+
 
 st.set_page_config(page_title="eleicao-geral-App | Nelson Eduardo", page_icon="😋")
 
@@ -46,7 +46,9 @@ with dataset:
         else:
             return pd.read_excel(ficheiro, sheet_name=folha)       
         
-    df_gerala2008 = importar_datasets(fich_excel_eleicao2008, planilha_eleicaoGeral)
+df_gerala2008 = importar_datasets(fich_excel_eleicao2008, planilha_eleicaoGeral)
+df_partidos = df_gerala2008["Partidos"]
+df_provincia = df_gerala2008["Partidos","Luanda"]
 # Criacao dos principais graficos
     # graifco de Pie
 def grafico_pie(categorias, valores):
@@ -90,16 +92,25 @@ with graficos:
 #     recebe = multipla_opc(df_presidencial)
 #     if recebe == []:
         # st.write("Seleciona um candidados")
-st.dataframe(df_gerala2008)
-
-# AgGrid(df_gerala2008)
-#     else: 
-        # st.write(recebe) 
-     #    st.dataframe(df_presidencial.loc[df_presidencial["Candidatos"]== recebe]) 
-        # st.dataframe(df_presidencial)
-#     grafico_pie(categoria_presidencial, valores_presidencial) 
-#     grafico_barra(categoria_presidencial, valores_presidencial)
 
 
 
+checkboReturn = st.sidebar.checkbox("Filtrar Por provincia")
+st.write("")
+
+if checkboReturn == True:
+    recebe = st.sidebar.selectbox("a quantidade de voto", df_partidos)
+    st.dataframe(df_gerala2008.loc[df_gerala2008["Partidos"] == recebe])
+else:
+    st.dataframe(df_gerala2008)
+    st.dataframe(df_provincia)
+
+# with graficos:
+
+# with div1:
+#     grafico_pie(categoria_legilativa, valores_legilativa)
+# with div2:
+#     # grafico_pie(categoria_legilativa, valores_legilativa)
+    
+#     grafico_barra(categoria_legilativa, valores_legilativa)
 
